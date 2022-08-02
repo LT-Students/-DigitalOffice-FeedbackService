@@ -3,6 +3,6 @@
 namespace LT.DigitalOffice.FeedbackService.Models.Dto.Configurations
 {
   public class RabbitMqConfig : BaseRabbitMqConfig
-    {
-    }
+  {
+  }
 }

@@ -9,10 +9,6 @@ namespace LT.DigitalOffice.OfficeService.Data.Migrations
   [Migration("20220802120000_InitialMigration")]
   public class InitialCreate : Migration
   {
-    #region Create tables
-
-    #endregion
-
     protected override void Up(MigrationBuilder migrationBuilder)
     {
     }
