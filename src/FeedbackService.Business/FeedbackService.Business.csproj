@@ -3,7 +3,11 @@
 	<Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
 
 	<ItemGroup>
-	  <Folder Include="Commands\" />
+	  <ProjectReference Include="..\FeedbackService.Broker\FeedbackService.Broker.csproj" />
+	  <ProjectReference Include="..\FeedbackService.Data\FeedbackService.Data.csproj" />
+	  <ProjectReference Include="..\FeedbackService.Mappers\FeedbackService.Mappers.csproj" />
+	  <ProjectReference Include="..\FeedbackService.Models.Dto\FeedbackService.Models.Dto.csproj" />
+	  <ProjectReference Include="..\FeedbackService.Validation\FeedbackService.Validation.csproj" />
 	</ItemGroup>
 
 </Project>
