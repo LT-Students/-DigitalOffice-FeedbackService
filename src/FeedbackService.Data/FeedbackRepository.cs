@@ -2,11 +2,10 @@
 using LT.DigitalOffice.FeedbackService.Data.Provider;
 using LT.DigitalOffice.FeedbackService.Models.Db;
 using LT.DigitalOffice.FeedbackService.Models.Dto.Requests.Filter;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace LT.DigitalOffice.FeedbackService.Data
 {
@@ -48,29 +47,25 @@ namespace LT.DigitalOffice.FeedbackService.Data
       }
 
       IQueryable<DbFeedback> query = CreateFindPredicate(filter);
-
       int totalCount = await query.CountAsync();
 
-      var dbFeedbacks = await query
-        .Skip(filter.SkipCount)
-        .Take(filter.TakeCount)
-        .OrderByDescending(f => f.CreatedAtUtc)
-        .ToListAsync();
-
-      return (dbFeedbacks, totalCount);
+      return (await query
+          .Skip(filter.SkipCount)
+          .Take(filter.TakeCount)
+          .OrderByDescending(f => f.CreatedAtUtc)
+          .ToListAsync(),
+        totalCount);
     }
 
-    public async Task<Guid?> CreateAsync(DbFeedback dbFeedback)
+    public async Task CreateAsync(DbFeedback dbFeedback)
     {
       if (dbFeedback is null)
       {
-        return null;
+        return;
       }
 
       _provider.Feedbacks.Add(dbFeedback);
       await _provider.SaveAsync();
-
-      return dbFeedback.Id;
     }
   }
 }

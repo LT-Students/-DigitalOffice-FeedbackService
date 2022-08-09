@@ -22,6 +22,7 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
       _httpContextAccessor = httpContextAccessor;
       _imageMapper = imageMapper;
     }
+
     public DbFeedback Map(CreateFeedbackRequest request, List<Guid> imageIds)
     {
       if (request is null)
@@ -29,7 +30,7 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
         return null;
       }
 
-      var feedbackId = Guid.NewGuid();
+      Guid feedbackId = Guid.NewGuid();
 
       return new DbFeedback
       {

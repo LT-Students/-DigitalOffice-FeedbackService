@@ -21,10 +21,10 @@ namespace LT.DigitalOffice.OfficeService.Data.Migrations
         {
           Id = table.Column<Guid>(nullable: false),
           FeedbackType = table.Column<int>(nullable: false),
-          Content = table.Column<string>(nullable: true),
+          Content = table.Column<string>(nullable: false),
           Status = table.Column<int>(nullable: false),
-          SenderFullName = table.Column<string>(nullable: true),
-          SenderIp = table.Column<string>(nullable: true),
+          SenderFullName = table.Column<string>(nullable: false),
+          SenderIp = table.Column<string>(nullable: false),
           SenderId = table.Column<Guid>(nullable: false),
           CreatedAtUtc = table.Column<DateTime>(nullable: false),
           ChangedBy = table.Column<Guid>(nullable: true),

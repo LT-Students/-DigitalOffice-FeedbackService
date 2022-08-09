@@ -28,7 +28,6 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
     private readonly IImageService _imageService;
     private readonly ILogger<CreateFeedbackCommand> _logger;
 
-
     public CreateFeedbackCommand(
       IFeedbackRepository repository,
       ICreateFeedbackValidator validator,
@@ -53,7 +52,6 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
       var s = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress;
       _logger.LogInformation($"Remote IP is {s}");
 
-
       ValidationResult validationResult = await _validator.ValidateAsync(request);
 
       if (!validationResult.IsValid)
@@ -64,10 +62,12 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
       }
 
       OperationResultResponse<Guid?> response = new();
-      List<Guid> imageIds = await _imageService.CreateImagesAsync(request.FeedbackImages, response.Errors);
+      //TODO: Fix Image creating
+      //List<Guid> imageIds = await _imageService.CreateImagesAsync(request.FeedbackImages, response.Errors);
+      List<Guid> imageIds = new List<Guid>();
       DbFeedback dbFeedback = _mapper.Map(request, imageIds);
 
-      response.Body = await _repository.CreateAsync(dbFeedback);
+      await _repository.CreateAsync(dbFeedback);
 
       _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
 

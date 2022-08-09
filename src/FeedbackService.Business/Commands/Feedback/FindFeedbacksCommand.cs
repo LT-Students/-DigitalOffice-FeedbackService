@@ -58,7 +58,7 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
       (List<DbFeedback> dbFeedbacks, int totalCount) = await _repository.FindAsync(filter);
 
       return new FindResultResponse<FeedbackInfo>(
-        dbFeedbacks.Select(f => _mapper.Map(f)).ToList(),
+        dbFeedbacks.Select(_mapper.Map).ToList(),
         totalCount);
     }
   }

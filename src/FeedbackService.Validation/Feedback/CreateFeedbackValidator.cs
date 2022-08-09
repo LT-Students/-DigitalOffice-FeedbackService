@@ -10,10 +10,6 @@ namespace LT.DigitalOffice.FeedbackService.Validation.Feedback
     {
       CascadeMode = CascadeMode.Stop;
 
-      RuleFor(f => f.Content)
-        .NotEmpty().WithMessage("Content cannot be empty.")
-        .MaximumLength(1000).WithMessage("Content length must be less than 1000 characters");
-
       RuleFor(f => f.Type)
         .IsInEnum();
     }
