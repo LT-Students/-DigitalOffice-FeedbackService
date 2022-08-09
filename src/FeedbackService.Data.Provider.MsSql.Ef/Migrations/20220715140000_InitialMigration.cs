@@ -13,7 +13,7 @@ namespace LT.DigitalOffice.OfficeService.Data.Migrations
   {
     #region Create tables
 
-    private static void CreateFeedbacksTable(MigrationBuilder migrationBuilder)
+    private void CreateFeedbacksTable(MigrationBuilder migrationBuilder)
     {
       migrationBuilder.CreateTable(
         name: DbFeedback.TableName,
@@ -36,7 +36,7 @@ namespace LT.DigitalOffice.OfficeService.Data.Migrations
         });
     }
 
-    private static void CreateFeedbacksImagesTable(MigrationBuilder migrationBuilder)
+    private void CreateFeedbacksImagesTable(MigrationBuilder migrationBuilder)
     {
       migrationBuilder.CreateTable(
         name: DbFeedbackImage.TableName,
