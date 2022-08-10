@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\FeedbackService.Business\FeedbackService.Business.csproj" />
 	  <ProjectReference Include="..\FeedbackService.Data.Provider.MsSql.Ef\FeedbackService.Data.Provider.MsSql.Ef.csproj" />
 	  <ProjectReference Include="..\FeedbackService.Models.Dto\FeedbackService.Models.Dto.csproj" />
 	</ItemGroup>

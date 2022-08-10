@@ -3,6 +3,9 @@
 	<Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
 
 	<ItemGroup>
+	  <ProjectReference Include="..\FeedbackService.Data.Provider\FeedbackService.Data.Provider.csproj" />
+	  <ProjectReference Include="..\FeedbackService.Models.Db\FeedbackService.Models.Db.csproj" />
+	  <ProjectReference Include="..\FeedbackService.Models.Dto\FeedbackService.Models.Dto.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.Threading.Tasks;
+using LT.DigitalOffice.FeedbackService.Models.Db;
 
 namespace LT.DigitalOffice.FeedbackService.Data.Provider.MsSql.Ef
 {
   public class FeedbackServiceDbContext : DbContext, IDataProvider
   {
+    public DbSet<DbFeedback> Feedbacks { get; set; }
+    public DbSet<DbFeedbackImage> FeedbacksImages { get; set; }
+
     public FeedbackServiceDbContext(DbContextOptions<FeedbackServiceDbContext> options)
       : base(options)
     {
