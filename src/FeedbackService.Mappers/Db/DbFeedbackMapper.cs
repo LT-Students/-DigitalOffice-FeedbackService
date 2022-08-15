@@ -3,7 +3,6 @@ using LT.DigitalOffice.FeedbackService.Models.Db;
 using LT.DigitalOffice.FeedbackService.Models.Dto.Enums;
 using LT.DigitalOffice.FeedbackService.Models.Dto.Requests;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace LT.DigitalOffice.FeedbackService.Mappers.Db
@@ -17,13 +16,14 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
       _imageMapper = imageMapper;
     }
 
-    public DbFeedback Map(CreateFeedbackRequest request, List<Guid> imageIds, Guid feedbackId)
+    public DbFeedback Map(CreateFeedbackRequest request)
     {
       if (request is null)
       {
         return null;
       }
 
+      Guid feedbackId = Guid.NewGuid();
       return new DbFeedback
       {
         Id = feedbackId,
@@ -34,7 +34,10 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
         SenderFullName = "",
         SenderId = Guid.NewGuid(),
         SenderIp = "",
-        CreatedAtUtc = DateTime.Now
+        CreatedAtUtc = DateTime.Now,
+        Images = request.FeedbackImages
+          .Select(fi => _imageMapper.Map(fi, feedbackId))
+          .ToList()
       };
     }
   }
