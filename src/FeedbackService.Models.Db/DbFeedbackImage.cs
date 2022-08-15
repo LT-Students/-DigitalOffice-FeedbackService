@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace LT.DigitalOffice.FeedbackService.Models.Db
 {
@@ -14,7 +14,7 @@ namespace LT.DigitalOffice.FeedbackService.Models.Db
     public DbFeedback Feedback { get; set; }
   }
 
-  public class DbProjectImageConfiguration : IEntityTypeConfiguration<DbFeedbackImage>
+  public class DbFeedbackImageConfiguration : IEntityTypeConfiguration<DbFeedbackImage>
   {
     public void Configure(EntityTypeBuilder<DbFeedbackImage> builder)
     {
