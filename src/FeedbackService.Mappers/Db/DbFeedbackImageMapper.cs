@@ -6,13 +6,13 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
 {
   public class DbFeedbackImageMapper : IDbFeedbackImageMapper
   {
-    public DbFeedbackImage Map(Guid imageId, Guid feedbackId)
+    public DbFeedbackImage Map(Guid feedbackId, Guid imageId)
     {
       return new DbFeedbackImage
       {
         Id = Guid.NewGuid(),
-        ImageId = imageId,
-        FeedbackId = feedbackId
+        FeedbackId = feedbackId,
+        ImageId = imageId
       };
     }
   }
