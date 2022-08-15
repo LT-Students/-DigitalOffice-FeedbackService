@@ -65,7 +65,7 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
 
       Guid feedbackId = Guid.NewGuid();
       List<Guid> imageIds = await _imageRepository.CreateAsync(request.FeedbackImages
-        .Select(fi => _imageMapper.Map(fi, feedbackId))
+        .Select(ic => _imageMapper.Map(ic, feedbackId))
         .ToList());
       DbFeedback dbFeedback = _feedbackMapper.Map(request, imageIds, feedbackId);
 
