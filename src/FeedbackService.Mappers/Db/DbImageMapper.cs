@@ -17,13 +17,11 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
       return new DbImage
       {
         Id = Guid.NewGuid(),
-        ParentId = feedbackId,
+        FeedbackId = feedbackId,
         Name = image.Name,
         Content = image.Content,
         Extension = image.Extension,
-        CreatedAtUtc = DateTime.Now,
-        //TODO: Fix
-        CreatedBy = Guid.NewGuid()
+        CreatedAtUtc = DateTime.Now
       };
     }
   }

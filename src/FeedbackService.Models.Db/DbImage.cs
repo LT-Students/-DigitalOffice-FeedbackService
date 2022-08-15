@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using LT.DigitalOffice.Kernel.BrokerSupport.Attributes.ParseEntity;
 
 namespace LT.DigitalOffice.FeedbackService.Models.Db
 {
@@ -8,12 +9,14 @@ namespace LT.DigitalOffice.FeedbackService.Models.Db
   {
     public const string TableName = "Images";
     public Guid Id { get; set; }
-    public Guid ParentId { get; set; }
+    public Guid FeedbackId { get; set; }
     public string Name { get; set; }
     public string Content { get; set; }
     public string Extension { get; set; }
     public DateTime CreatedAtUtc { get; set; }
-    public Guid CreatedBy { get; set; }
+
+    [IgnoreParse]
+    public DbFeedback Feedback { get; set; }
   }
 
   public class DbImageConfiguration : IEntityTypeConfiguration<DbImage>

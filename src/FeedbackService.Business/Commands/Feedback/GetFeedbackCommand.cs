@@ -55,10 +55,8 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
         _responseCreator.CreateFailureResponse<FeedbackInfo>(HttpStatusCode.NotFound);
       }
 
-      OperationResultResponse<FeedbackInfo> response = new();
-      response.Body = _mapper.Map(feedback);
-
-      return response;
+      return new OperationResultResponse<FeedbackInfo>(
+        body: _mapper.Map(feedback));
     }
   }
 }

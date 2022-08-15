@@ -10,9 +10,9 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
 {
   public class DbFeedbackMapper : IDbFeedbackMapper
   {
-    private readonly IDbFeedbackImageMapper _imageMapper;
+    private readonly IDbImageMapper _imageMapper;
 
-    public DbFeedbackMapper(IDbFeedbackImageMapper imageMapper)
+    public DbFeedbackMapper(IDbImageMapper imageMapper)
     {
       _imageMapper = imageMapper;
     }
@@ -34,10 +34,7 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
         SenderFullName = "",
         SenderId = Guid.NewGuid(),
         SenderIp = "",
-        CreatedAtUtc = DateTime.Now,
-        Images = imageIds?
-          .Select(imageId => _imageMapper.Map(feedbackId, imageId))
-          .ToList()
+        CreatedAtUtc = DateTime.Now
       };
     }
   }

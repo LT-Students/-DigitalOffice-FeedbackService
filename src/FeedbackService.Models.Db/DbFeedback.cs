@@ -21,7 +21,7 @@ namespace LT.DigitalOffice.FeedbackService.Models.Db
     public DateTime? ChangedAtUtc { get; set; }
 
     [IgnoreParse]
-    public ICollection<DbFeedbackImage> Images { get; set; } = new HashSet<DbFeedbackImage>();
+    public ICollection<DbImage> Images { get; set; } = new HashSet<DbImage>();
   }
 
   public class DbFeedbackConfiguration : IEntityTypeConfiguration<DbFeedback>

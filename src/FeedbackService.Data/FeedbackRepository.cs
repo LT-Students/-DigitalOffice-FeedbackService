@@ -58,9 +58,9 @@ namespace LT.DigitalOffice.FeedbackService.Data
         totalCount);
     }
 
-    public async Task<DbFeedback> GetAsync(Guid feedbackId)
+    public  Task<DbFeedback> GetAsync(Guid feedbackId)
     {
-      return await _provider.Feedbacks.FirstOrDefaultAsync(f => f.Id == feedbackId);
+      return _provider.Feedbacks.FirstOrDefaultAsync(f => f.Id == feedbackId);
     }
 
     public async Task<Guid?> CreateAsync(DbFeedback dbFeedback)

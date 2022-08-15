@@ -8,7 +8,6 @@ namespace LT.DigitalOffice.FeedbackService.Data.Provider.MsSql.Ef
   public class FeedbackServiceDbContext : DbContext, IDataProvider
   {
     public DbSet<DbFeedback> Feedbacks { get; set; }
-    public DbSet<DbFeedbackImage> FeedbacksImages { get; set; }
     public DbSet<DbImage> Images { get; set; }
 
     public FeedbackServiceDbContext(DbContextOptions<FeedbackServiceDbContext> options)

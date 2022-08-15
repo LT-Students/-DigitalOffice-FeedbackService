@@ -21,10 +21,6 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Models
         Content = dbFeedback.Content,
         Status = (FeedbackStatusType)dbFeedback.Status,
         SenderFullName = dbFeedback.SenderFullName,
-        SenderId = dbFeedback.SenderId,
-        CreatedAtUtc = dbFeedback.CreatedAtUtc,
-        ChangedBy = dbFeedback.ChangedBy,
-        ChangedAtUtc = dbFeedback.ChangedAtUtc
       };
     }
   }
