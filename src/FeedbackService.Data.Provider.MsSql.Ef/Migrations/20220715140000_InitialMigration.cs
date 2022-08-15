@@ -1,9 +1,9 @@
-﻿using System;
-using LT.DigitalOffice.FeedbackService.Data.Provider.MsSql.Ef;
+﻿using LT.DigitalOffice.FeedbackService.Data.Provider.MsSql.Ef;
 using LT.DigitalOffice.FeedbackService.Models.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace LT.DigitalOffice.OfficeService.Data.Migrations
 {
@@ -20,7 +20,7 @@ namespace LT.DigitalOffice.OfficeService.Data.Migrations
         columns: table => new
         {
           Id = table.Column<Guid>(nullable: false),
-          FeedbackType = table.Column<int>(nullable: false),
+          Type = table.Column<int>(nullable: false),
           Content = table.Column<string>(nullable: false),
           Status = table.Column<int>(nullable: false),
           SenderFullName = table.Column<string>(nullable: false),
@@ -33,6 +33,26 @@ namespace LT.DigitalOffice.OfficeService.Data.Migrations
         constraints: table =>
         {
           table.PrimaryKey("PK_Feedbacks", f => f.Id);
+        });
+    }
+
+    private void CreateImagesTable(MigrationBuilder builder)
+    {
+      builder.CreateTable(
+        name: DbImage.TableName,
+        columns: table => new
+        {
+          Id = table.Column<Guid>(nullable: false),
+          ParentId = table.Column<Guid>(nullable: false),
+          Name = table.Column<string>(nullable: false),
+          Content = table.Column<string>(nullable: false),
+          Extension = table.Column<string>(nullable: false),
+          CreatedBy = table.Column<Guid>(nullable: false),
+          CreatedAtUtc = table.Column<DateTime>(nullable: false),
+        },
+        constraints: table =>
+        {
+          table.PrimaryKey($"PK_Images", i => i.Id);
         });
     }
 
@@ -57,12 +77,14 @@ namespace LT.DigitalOffice.OfficeService.Data.Migrations
     protected override void Up(MigrationBuilder migrationBuilder)
     {
       CreateFeedbacksTable(migrationBuilder);
+      CreateImagesTable(migrationBuilder);
       CreateFeedbacksImagesTable(migrationBuilder);
     }
 
     protected override void Down(MigrationBuilder migrationBuilder)
     {
       migrationBuilder.DropTable(DbFeedback.TableName);
+      migrationBuilder.DropTable(DbImage.TableName);
       migrationBuilder.DropTable(DbFeedbackImage.TableName);
     }
   }
