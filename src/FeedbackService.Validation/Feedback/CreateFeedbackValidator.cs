@@ -8,8 +8,6 @@ namespace LT.DigitalOffice.FeedbackService.Validation.Feedback
   {
     public CreateFeedbackValidator()
     {
-      CascadeMode = CascadeMode.Stop;
-
       RuleFor(f => f.Type)
         .IsInEnum();
     }

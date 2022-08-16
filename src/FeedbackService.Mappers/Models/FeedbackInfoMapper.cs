@@ -17,14 +17,10 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Models
       return new FeedbackInfo
       {
         Id = dbFeedback.Id,
-        Type = (FeedbackType)dbFeedback.FeedbackType,
+        Type = (FeedbackType)dbFeedback.Type,
         Content = dbFeedback.Content,
         Status = (FeedbackStatusType)dbFeedback.Status,
         SenderFullName = dbFeedback.SenderFullName,
-        SenderId = dbFeedback.SenderId,
-        CreatedAtUtc = dbFeedback.CreatedAtUtc,
-        ChangedBy = dbFeedback.ChangedBy,
-        ChangedAtUtc = dbFeedback.ChangedAtUtc
       };
     }
   }

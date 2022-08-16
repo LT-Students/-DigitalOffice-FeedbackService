@@ -3,6 +3,7 @@ using LT.DigitalOffice.FeedbackService.Data.Provider;
 using LT.DigitalOffice.FeedbackService.Models.Db;
 using LT.DigitalOffice.FeedbackService.Models.Dto.Requests.Filter;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace LT.DigitalOffice.FeedbackService.Data
 
       if (filter.FeedbackType.HasValue)
       {
-        query = query.Where(f => f.FeedbackType == (int)filter.FeedbackType);
+        query = query.Where(f => f.Type == (int)filter.FeedbackType);
       }
 
       if (filter.FeedbackStatus.HasValue)
@@ -57,15 +58,22 @@ namespace LT.DigitalOffice.FeedbackService.Data
         totalCount);
     }
 
-    public async Task CreateAsync(DbFeedback dbFeedback)
+    public Task<DbFeedback> GetAsync(Guid feedbackId)
+    {
+      return _provider.Feedbacks.FirstOrDefaultAsync(f => f.Id == feedbackId);
+    }
+
+    public async Task<Guid?> CreateAsync(DbFeedback dbFeedback)
     {
       if (dbFeedback is null)
       {
-        return;
+        return null;
       }
 
       _provider.Feedbacks.Add(dbFeedback);
       await _provider.SaveAsync();
+
+      return dbFeedback.Id;
     }
   }
 }

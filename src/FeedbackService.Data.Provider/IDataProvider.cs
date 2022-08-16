@@ -10,6 +10,6 @@ namespace LT.DigitalOffice.FeedbackService.Data.Provider
   public interface IDataProvider : IBaseDataProvider
   {
     DbSet<DbFeedback> Feedbacks { get; set; }
-    DbSet<DbFeedbackImage> FeedbacksImages { get; set; }
+    DbSet<DbImage> Images { get; set; }
   }
 }

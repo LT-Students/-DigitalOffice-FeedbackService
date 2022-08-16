@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Results;
-using LT.DigitalOffice.FeedbackService.Broker.Requests.Interfaces;
 using LT.DigitalOffice.FeedbackService.Business.Commands.Feedback.Interfaces;
 using LT.DigitalOffice.FeedbackService.Data.Interfaces;
 using LT.DigitalOffice.FeedbackService.Mappers.Db.Interfaces;
@@ -11,7 +10,6 @@ using LT.DigitalOffice.Kernel.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -20,29 +18,26 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
 {
   public class CreateFeedbackCommand : ICreateFeedbackCommand
   {
-    private readonly IFeedbackRepository _repository;
+    private readonly IFeedbackRepository _feedbackRepository;
     private readonly ICreateFeedbackValidator _validator;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IDbFeedbackMapper _mapper;
+    private readonly IDbFeedbackMapper _feedbackMapper;
     private readonly IResponseCreator _responseCreator;
-    private readonly IImageService _imageService;
     private readonly ILogger<CreateFeedbackCommand> _logger;
 
     public CreateFeedbackCommand(
-      IFeedbackRepository repository,
+      IFeedbackRepository feedbackRepository,
       ICreateFeedbackValidator validator,
       IHttpContextAccessor httpContextAccessor,
-      IDbFeedbackMapper mapper,
+      IDbFeedbackMapper feedbackMapper,
       IResponseCreator responseCreator,
-      IImageService imageService,
       ILogger<CreateFeedbackCommand> logger)
     {
-      _repository = repository;
+      _feedbackRepository = feedbackRepository;
       _validator = validator;
       _httpContextAccessor = httpContextAccessor;
-      _mapper = mapper;
+      _feedbackMapper = feedbackMapper;
       _responseCreator = responseCreator;
-      _imageService = imageService;
       _logger = logger;
     }
 
@@ -61,13 +56,10 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
           validationResult.Errors.Select(vf => vf.ErrorMessage).ToList());
       }
 
-      OperationResultResponse<Guid?> response = new();
-      //TODO: Fix Image creating
-      //List<Guid> imageIds = await _imageService.CreateImagesAsync(request.FeedbackImages, response.Errors);
-      List<Guid> imageIds = new List<Guid>();
-      DbFeedback dbFeedback = _mapper.Map(request, imageIds);
+      DbFeedback dbFeedback = _feedbackMapper.Map(request);
 
-      await _repository.CreateAsync(dbFeedback);
+      OperationResultResponse<Guid?> response = new();
+      response.Body = await _feedbackRepository.CreateAsync(dbFeedback);
 
       _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
 

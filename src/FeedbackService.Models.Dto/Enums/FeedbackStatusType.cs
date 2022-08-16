@@ -7,7 +7,6 @@ namespace LT.DigitalOffice.FeedbackService.Models.Dto.Enums
   public enum FeedbackStatusType
   {
     New,
-    InProgress,
-    Done
+    Archived
   }
 }
