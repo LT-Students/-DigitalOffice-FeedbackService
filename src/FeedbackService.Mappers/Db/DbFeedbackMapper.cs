@@ -32,7 +32,7 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
         Status = (int)FeedbackStatusType.New,
         //TODO: Fill sender full name and ip
         SenderFullName = "",
-        SenderId = Guid.NewGuid(),
+        SenderId = Guid.Empty,
         SenderIp = "",
         CreatedAtUtc = DateTime.Now,
         Images = request.FeedbackImages
