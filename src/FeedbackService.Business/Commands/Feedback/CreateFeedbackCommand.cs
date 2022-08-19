@@ -43,9 +43,9 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
 
     public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreateFeedbackRequest request)
     {
-      //TODO: Fix
       var s = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress;
-      _logger.LogInformation($"Remote IP is {s}");
+
+      _logger.LogInformation($"Remote IP is {s.Address}. User {request?.User?.FirstName}");
 
       ValidationResult validationResult = await _validator.ValidateAsync(request);
 

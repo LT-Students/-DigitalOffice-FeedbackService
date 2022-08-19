@@ -10,5 +10,6 @@ namespace LT.DigitalOffice.FeedbackService.Models.Dto.Models
     public string Content { get; set; }
     public FeedbackStatusType Status { get; set; }
     public string SenderFullName { get; set; }
+    public DateTime CreatedAtUtc { get; set; }
   }
 }

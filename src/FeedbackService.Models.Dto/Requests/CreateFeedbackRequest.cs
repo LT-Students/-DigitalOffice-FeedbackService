@@ -1,5 +1,6 @@
 ﻿using LT.DigitalOffice.FeedbackService.Models.Dto.Enums;
 using LT.DigitalOffice.FeedbackService.Models.Dto.Models;
+using LT.DigitalOffice.Models.Broker.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,5 +16,6 @@ namespace LT.DigitalOffice.FeedbackService.Models.Dto.Requests
 
     [Required]
     public List<ImageContent> FeedbackImages { get; set; }
+    public UserData User { get; set; }
   }
 }
