@@ -40,7 +40,7 @@ namespace LT.DigitalOffice.FeedbackService.Data
       _provider = provider;
     }
 
-    public async Task<(List<DbFeedback> dbFeedbacks, int totalCount)> FindAsync(FindFeedbacksFilter filter)
+    public async Task<(List<(DbFeedback dbFeedback, int imagesCount)> dbFeedbacks, int totalCount)> FindAsync(FindFeedbacksFilter filter)
     {
       if (filter is null)
       {
@@ -48,19 +48,22 @@ namespace LT.DigitalOffice.FeedbackService.Data
       }
 
       IQueryable<DbFeedback> query = CreateFindPredicate(filter);
+
       int totalCount = await query.CountAsync();
 
-      return (await query
-          .Skip(filter.SkipCount)
-          .Take(filter.TakeCount)
-          .OrderByDescending(f => f.CreatedAtUtc)
-          .ToListAsync(),
+      var dbFeedbacks = await (
+        from f
+        in query.Include(f => f.Images).Skip(filter.SkipCount).Take(filter.TakeCount).OrderByDescending(f => f.CreatedAtUtc)
+        select new { Feedback = f, ImagesCount = f.Images.Count }).ToListAsync();
+
+      return
+        (dbFeedbacks.Select(f => (f.Feedback, f.ImagesCount)).ToList(),
         totalCount);
     }
 
     public Task<DbFeedback> GetAsync(Guid feedbackId)
     {
-      return _provider.Feedbacks.FirstOrDefaultAsync(f => f.Id == feedbackId);
+      return _provider.Feedbacks.Include(f => f.Images).FirstOrDefaultAsync(f => f.Id == feedbackId);
     }
 
     public async Task<Guid?> CreateAsync(DbFeedback dbFeedback)

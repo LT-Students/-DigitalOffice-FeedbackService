@@ -45,7 +45,7 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
     {
       var s = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress;
 
-      _logger.LogInformation($"Remote IP is {s.Address}. User {request?.User?.FirstName}");
+      _logger.LogInformation($"Remote IP is {s}. User {request?.User?.FirstName}");
 
       ValidationResult validationResult = await _validator.ValidateAsync(request);
 

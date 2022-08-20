@@ -5,8 +5,8 @@ using LT.DigitalOffice.Kernel.Attributes;
 namespace LT.DigitalOffice.FeedbackService.Mappers.Models.Interfaces
 {
   [AutoInject]
-  public interface IFeedbackInfoMapper
+  public interface IImageMapper
   {
-    FeedbackInfo Map(DbFeedback dbFeedback, int imagesCount);
+    ImageContent Map(DbImage dbImage);
   }
 }

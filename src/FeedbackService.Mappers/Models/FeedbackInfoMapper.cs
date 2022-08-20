@@ -7,7 +7,7 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Models
 {
   public class FeedbackInfoMapper : IFeedbackInfoMapper
   {
-    public FeedbackInfo Map(DbFeedback dbFeedback)
+    public FeedbackInfo Map(DbFeedback dbFeedback, int imagesCount)
     {
       if (dbFeedback is null)
       {
@@ -21,7 +21,8 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Models
         Content = dbFeedback.Content,
         Status = (FeedbackStatusType)dbFeedback.Status,
         SenderFullName = dbFeedback.SenderFullName,
-        CreatedAtUtc = dbFeedback.CreatedAtUtc
+        CreatedAtUtc = dbFeedback.CreatedAtUtc,
+        ImagesCount = imagesCount
       };
     }
   }

@@ -1,8 +1,8 @@
 ﻿using LT.DigitalOffice.FeedbackService.Business.Commands.Feedback.Interfaces;
 using LT.DigitalOffice.FeedbackService.Data.Interfaces;
-using LT.DigitalOffice.FeedbackService.Mappers.Models.Interfaces;
+using LT.DigitalOffice.FeedbackService.Mappers.Responses.Interfaces;
 using LT.DigitalOffice.FeedbackService.Models.Db;
-using LT.DigitalOffice.FeedbackService.Models.Dto.Models;
+using LT.DigitalOffice.FeedbackService.Models.Dto;
 using LT.DigitalOffice.Kernel.BrokerSupport.AccessValidatorEngine.Interfaces;
 using LT.DigitalOffice.Kernel.Extensions;
 using LT.DigitalOffice.Kernel.Helpers.Interfaces;
@@ -20,14 +20,14 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
     private readonly IResponseCreator _responseCreator;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IFeedbackRepository _repository;
-    private readonly IFeedbackInfoMapper _mapper;
+    private readonly IFeedbackResponseMapper _mapper;
 
     public GetFeedbackCommand(
       IAccessValidator accessValidator,
       IResponseCreator responseCreator,
       IHttpContextAccessor httpContextAccessor,
       IFeedbackRepository repository,
-      IFeedbackInfoMapper mapper)
+      IFeedbackResponseMapper mapper)
     {
       _accessValidator = accessValidator;
       _responseCreator = responseCreator;
@@ -36,26 +36,26 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
       _mapper = mapper;
     }
 
-    public async Task<OperationResultResponse<FeedbackInfo>> ExecuteAsync(Guid feedbackId)
+    public async Task<OperationResultResponse<FeedbackResponse>> ExecuteAsync(Guid feedbackId)
     {
       if (!await _accessValidator.IsAdminAsync(_httpContextAccessor.HttpContext.GetUserId()))
       {
-        return _responseCreator.CreateFailureResponse<FeedbackInfo>(HttpStatusCode.Forbidden);
+        return _responseCreator.CreateFailureResponse<FeedbackResponse>(HttpStatusCode.Forbidden);
       }
 
       if (feedbackId == default)
       {
-        return _responseCreator.CreateFailureResponse<FeedbackInfo>(HttpStatusCode.BadRequest);
+        return _responseCreator.CreateFailureResponse<FeedbackResponse>(HttpStatusCode.BadRequest);
       }
 
       DbFeedback feedback = await _repository.GetAsync(feedbackId);
 
       if (feedback is null)
       {
-        _responseCreator.CreateFailureResponse<FeedbackInfo>(HttpStatusCode.NotFound);
+        _responseCreator.CreateFailureResponse<FeedbackResponse>(HttpStatusCode.NotFound);
       }
 
-      return new OperationResultResponse<FeedbackInfo>(
+      return new OperationResultResponse<FeedbackResponse>(
         body: _mapper.Map(feedback));
     }
   }

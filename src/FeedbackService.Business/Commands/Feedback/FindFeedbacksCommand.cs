@@ -55,10 +55,10 @@ namespace LT.DigitalOffice.FeedbackService.Business.Commands.Feedback
         return _responseCreator.CreateFailureFindResponse<FeedbackInfo>(HttpStatusCode.BadRequest, errors);
       }
 
-      (List<DbFeedback> dbFeedbacks, int totalCount) = await _repository.FindAsync(filter);
+      (List<(DbFeedback dbFeedback, int imagesCount)> dbFeedbacks, int totalCount) = await _repository.FindAsync(filter);
 
       return new FindResultResponse<FeedbackInfo>(
-        dbFeedbacks.Select(_mapper.Map).ToList(),
+        dbFeedbacks.Select(f => _mapper.Map(f.dbFeedback, f.imagesCount)).ToList(),
         totalCount);
     }
   }
