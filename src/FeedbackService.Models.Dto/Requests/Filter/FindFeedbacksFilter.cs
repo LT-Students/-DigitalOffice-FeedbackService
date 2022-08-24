@@ -11,5 +11,8 @@ namespace LT.DigitalOffice.FeedbackService.Models.Dto.Requests.Filter
 
     [FromQuery(Name = "feedbacktype")]
     public FeedbackType? FeedbackType { get; set; }
+
+    [FromQuery(Name = "orderbydescending")]
+    public bool OrderByDescending { get; set; } = false;
   }
 }
