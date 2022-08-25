@@ -10,6 +10,7 @@ namespace LT.DigitalOffice.FeedbackService.Models.Dto.Requests
     [Required]
     public List<Guid> FeedbackIds;
 
-    [Required] public FeedbackStatusType Status;
+    [Required]
+    public FeedbackStatusType Status;
   }
 }

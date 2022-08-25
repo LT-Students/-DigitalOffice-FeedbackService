@@ -31,6 +31,11 @@ namespace LT.DigitalOffice.FeedbackService.Data
         query = query.Where(f => f.Status == (int)filter.FeedbackStatus);
       }
 
+      if (filter.OrderByDescending)
+      {
+        query = query.OrderByDescending(f => f.CreatedAtUtc);
+      }
+
       return query;
     }
 
@@ -51,11 +56,6 @@ namespace LT.DigitalOffice.FeedbackService.Data
       IQueryable<DbFeedback> query = CreateFindPredicate(filter);
 
       int totalCount = await query.CountAsync();
-
-      if (filter.OrderByDescending)
-      {
-        query = query.OrderByDescending(q => q.CreatedAtUtc);
-      }
 
       IEnumerable<(DbFeedback Feedback, int ImagesCount)> dbfeedbacks = query
         .Skip(filter.SkipCount)
