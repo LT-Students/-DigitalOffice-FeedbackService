@@ -52,18 +52,17 @@ namespace LT.DigitalOffice.FeedbackService.Data
 
       int totalCount = await query.CountAsync();
 
-      var dbfeedbacks = query
+      if (filter.OrderByDescending)
+      {
+        query = query.OrderByDescending(q => q.CreatedAtUtc);
+      }
+
+      IEnumerable<(DbFeedback Feedback, int ImagesCount)> dbfeedbacks = query
         .Skip(filter.SkipCount)
         .Take(filter.TakeCount)
         .Select(f => new { Feedback = f, ImagesCount = f.Images.Count })
         .AsEnumerable()
         .Select(f => (f.Feedback, f.ImagesCount));
-
-      // TODO: Decide if it is better to sort before or after taking and skipping???
-      if (filter.OrderByDescending)
-      {
-        dbfeedbacks = dbfeedbacks.OrderByDescending(f => f.Feedback.CreatedAtUtc);
-      }
 
       return (dbfeedbacks.ToList(), totalCount);
     }
@@ -86,9 +85,9 @@ namespace LT.DigitalOffice.FeedbackService.Data
       return dbFeedback.Id;
     }
 
-    public async Task<bool> EditStatusesAsync(List<Guid> feedbackIds, FeedbackStatusType status)
+    public async Task<bool> EditStatusesAsync(List<Guid> feedbacksIds, FeedbackStatusType status)
     {
-      var dbFeedbacks = _provider.Feedbacks.Where(f => feedbackIds.Contains(f.Id));
+      IQueryable<DbFeedback> dbFeedbacks = _provider.Feedbacks.Where(f => feedbacksIds.Contains(f.Id));
       await dbFeedbacks.ForEachAsync(f => f.Status = (int)status);
       await _provider.SaveAsync();
 
