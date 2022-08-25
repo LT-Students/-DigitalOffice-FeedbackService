@@ -30,9 +30,9 @@ namespace LT.DigitalOffice.FeedbackService.Mappers.Db
         Type = (int)request.Type,
         Content = request.Content,
         Status = (int)FeedbackStatusType.New,
-        SenderFullName = request.User is null ? String.Empty : $"{request.User.LastName} {request.User.LastName} {request.User.MiddleName}",
-        SenderId = request.User is null ? Guid.Empty : request.User.Id,
-        SenderIp = String.Empty,
+        SenderFullName = request.User is null ? string.Empty : $"{request.User.LastName} {request.User.FirstName} {request.User.MiddleName}",
+        SenderId = request.User?.Id ?? Guid.Empty,
+        SenderIp = string.Empty,
         CreatedAtUtc = DateTime.Now,
         Images = request.FeedbackImages
           .Select(fi => _imageMapper.Map(fi, feedbackId))

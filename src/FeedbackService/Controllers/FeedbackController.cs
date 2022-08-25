@@ -37,5 +37,13 @@ namespace LT.DigitalOffice.FeedbackService.Controllers
     {
       return await command.ExecuteAsync(request);
     }
+
+    [HttpPut("editstatus")]
+    public async Task<OperationResultResponse<bool>> EditStatusAsync(
+      [FromBody] EditFeedbackStatusesRequest request,
+      [FromServices] IEditFeedbackStatusesCommand command)
+    {
+      return await command.ExecuteAsync(request);
+    }
   }
 }
