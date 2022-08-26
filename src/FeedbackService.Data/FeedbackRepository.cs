@@ -31,10 +31,9 @@ namespace LT.DigitalOffice.FeedbackService.Data
         query = query.Where(f => f.Status == (int)filter.FeedbackStatus);
       }
 
-      if (filter.OrderByDescending)
-      {
-        query = query.OrderByDescending(f => f.CreatedAtUtc);
-      }
+      query = filter.OrderByDescending
+        ? query.OrderByDescending(f => f.CreatedAtUtc)
+        : query.OrderBy(f => f.CreatedAtUtc);
 
       return query;
     }
