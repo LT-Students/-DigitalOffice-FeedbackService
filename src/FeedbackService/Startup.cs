@@ -29,7 +29,6 @@ namespace LT.DigitalOffice.FeedbackService
   public class Startup : BaseApiInfo
   {
     public const string CorsPolicyName = "LtDoCorsPolicy";
-    private string redisConnStr;
 
     private readonly RabbitMqConfig _rabbitMqConfig;
     private readonly BaseServiceInfoConfig _serviceInfoConfig;
